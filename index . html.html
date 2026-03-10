@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Authentic Traditional Tastes – Traditional Food, Pickles & Fertilizers</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --saffron: #E8871A;
+    --deep-green: #2D5016;
+    --earthy: #8B4513;
+    --cream: #FDF6E3;
+    --light-tan: #F5E6C8;
+    --dark: #1A1A1A;
+    --white: #fff;
+    --red: #C0392B;
+    --success: #27AE60;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Lato',sans-serif; background:var(--cream); color:var(--dark); }
+
+  /* ===== PAGES ===== */
+  .page { display:none; min-height:100vh; }
+  .page.active { display:block; }
+
+  /* ===== NAV ===== */
+  nav {
+    background:var(--deep-green);
+    padding:0 32px;
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px; position:sticky; top:0; z-index:100;
+    box-shadow:0 2px 12px rgba(0,0,0,0.3);
+  }
+  .nav-logo { font-family:'Playfair Display',serif; color:var(--saffron); font-size:1.6rem; font-weight:900; cursor:pointer; }
+  .nav-links { display:flex; gap:8px; align-items:center; }
+  .nav-btn {
+    background:none; border:none; color:var(--cream); font-family:'Lato',sans-serif;
+    font-size:0.95rem; cursor:pointer; padding:8px 14px; border-radius:6px; transition:0.2s;
+  }
+  .nav-btn:hover { background:rgba(255,255,255,0.12); }
+  .nav-btn.active-nav { color:var(--saffron); font-weight:700; }
+  .cart-btn {
+    background:var(--saffron); color:var(--white); border:none; border-radius:8px;
+    padding:8px 18px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:6px;
+    font-size:0.95rem; transition:0.2s;
+  }
+  .cart-btn:hover { background:#cf7715; }
+  #cart-count {
+    background:var(--red); color:#fff; border-radius:50%; width:20px; height:20px;
+    display:inline-flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700;
+  }
+
+  /* ===== AUTH PAGES ===== */
+  .auth-bg {
+    min-height:100vh; background:linear-gradient(135deg,var(--deep-green) 0%,#4a7c28 100%);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .auth-card {
+    background:var(--white); border-radius:20px; padding:48px 40px; width:420px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.3); position:relative; overflow:hidden;
+  }
+  .auth-card::before {
+    content:''; position:absolute; top:-40px; right:-40px; width:160px; height:160px;
+    background:var(--saffron); border-radius:50%; opacity:0.15;
+  }
+  .auth-title { font-family:'Playfair Display',serif; font-size:2rem; color:var(--deep-green); margin-bottom:6px; }
+  .auth-sub { color:#666; font-size:0.9rem; margin-bottom:28px; }
+  .auth-brand { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--saffron); font-weight:700; margin-bottom:24px; display:block; }
+  .form-group { margin-bottom:18px; }
+  .form-group label { display:block; font-weight:700; margin-bottom:6px; font-size:0.88rem; color:#444; text-transform:uppercase; letter-spacing:0.5px; }
+  .form-group input {
+    width:100%; padding:12px 16px; border:2px solid #e0d6c0; border-radius:10px;
+    font-size:1rem; font-family:'Lato',sans-serif; background:var(--cream);
+    transition:0.2s; outline:none;
+  }
+  .form-group input:focus { border-color:var(--saffron); background:#fff; }
+  .auth-submit {
+    width:100%; padding:14px; background:var(--deep-green); color:#fff; border:none;
+    border-radius:10px; font-size:1rem; font-weight:700; cursor:pointer; transition:0.2s;
+    font-family:'Lato',sans-serif; margin-top:6px;
+  }
+  .auth-submit:hover { background:#3d6b1f; }
+  .auth-switch { text-align:center; margin-top:20px; font-size:0.9rem; color:#666; }
+  .auth-switch a { color:var(--saffron); font-weight:700; cursor:pointer; text-decoration:none; }
+  .auth-error { background:#fdecea; border:1px solid #f5c6c2; color:var(--red); padding:10px 14px; border-radius:8px; margin-bottom:16px; font-size:0.9rem; display:none; }
+  .auth-success { background:#eafaf1; border:1px solid #b2dfdb; color:var(--success); padding:10px 14px; border-radius:8px; margin-bottom:16px; font-size:0.9rem; display:none; }
+
+  /* ===== HOME PAGE ===== */
+  .hero {
+    background:linear-gradient(135deg,var(--deep-green) 0%,#4a7c28 60%,var(--saffron) 100%);
+    padding:80px 40px; text-align:center; color:#fff;
+    position:relative; overflow:hidden;
+  }
+  .hero::before {
+    content:'🌿'; font-size:200px; position:absolute; top:-40px; left:-30px; opacity:0.08;
+  }
+  .hero::after {
+    content:'🥫'; font-size:160px; position:absolute; bottom:-30px; right:20px; opacity:0.08;
+  }
+  .hero h1 { font-family:'Playfair Display',serif; font-size:3.2rem; font-weight:900; margin-bottom:16px; line-height:1.1; }
+  .hero p { font-size:1.2rem; opacity:0.9; max-width:580px; margin:0 auto 32px; }
+  .hero-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+  .btn-primary {
+    background:var(--saffron); color:#fff; border:none; padding:14px 32px;
+    border-radius:10px; font-size:1rem; font-weight:700; cursor:pointer; transition:0.2s;
+  }
+  .btn-primary:hover { background:#cf7715; transform:translateY(-2px); }
+  .btn-outline {
+    background:transparent; color:#fff; border:2px solid #fff; padding:14px 32px;
+    border-radius:10px; font-size:1rem; font-weight:700; cursor:pointer; transition:0.2s;
+  }
+  .btn-outline:hover { background:rgba(255,255,255,0.15); }
+
+  /* Category strip */
+  .cat-strip { background:var(--earthy); padding:16px 32px; display:flex; gap:12px; overflow-x:auto; justify-content:center; }
+  .cat-pill {
+    background:rgba(255,255,255,0.15); color:#fff; border:none; border-radius:30px;
+    padding:8px 20px; font-size:0.9rem; cursor:pointer; transition:0.2s; white-space:nowrap;
+    font-family:'Lato',sans-serif;
+  }
+  .cat-pill:hover, .cat-pill.active { background:var(--saffron); }
+
+  /* Section */
+  .section { padding:56px 32px; max-width:1280px; margin:0 auto; }
+  .section-title { font-family:'Playfair Display',serif; font-size:2rem; color:var(--deep-green); margin-bottom:8px; }
+  .section-sub { color:#888; margin-bottom:32px; font-size:1rem; }
+
+  /* Products grid */
+  .products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:24px; }
+  .product-card {
+    background:#fff; border-radius:16px; overflow:hidden;
+    box-shadow:0 4px 18px rgba(0,0,0,0.08); transition:0.2s; cursor:pointer;
+  }
+  .product-card:hover { transform:translateY(-4px); box-shadow:0 10px 30px rgba(0,0,0,0.14); }
+  .product-img {
+    height:160px; display:flex; align-items:center; justify-content:center;
+    font-size:72px; background:var(--light-tan);
+  }
+  .product-info { padding:16px; }
+  .product-cat { font-size:0.75rem; color:var(--saffron); font-weight:700; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; }
+  .product-name { font-weight:700; font-size:1rem; margin-bottom:4px; color:var(--dark); }
+  .product-desc { font-size:0.82rem; color:#888; margin-bottom:10px; }
+  .product-bottom { display:flex; align-items:center; justify-content:space-between; }
+  .product-price { font-size:1.1rem; font-weight:700; color:var(--deep-green); }
+  .add-cart-btn {
+    background:var(--saffron); color:#fff; border:none; border-radius:8px;
+    padding:6px 14px; font-size:0.85rem; font-weight:700; cursor:pointer; transition:0.2s;
+  }
+  .add-cart-btn:hover { background:#cf7715; }
+
+  /* ===== PRODUCTS PAGE ===== */
+  .products-header {
+    background:linear-gradient(90deg,var(--deep-green),#4a7c28);
+    padding:40px 32px; color:#fff;
+  }
+  .products-header h1 { font-family:'Playfair Display',serif; font-size:2.2rem; }
+  .filter-bar { background:#fff; border-bottom:2px solid var(--light-tan); padding:16px 32px; display:flex; gap:10px; flex-wrap:wrap; }
+  .filter-btn {
+    background:var(--light-tan); border:none; border-radius:8px; padding:8px 18px;
+    font-size:0.9rem; cursor:pointer; font-family:'Lato',sans-serif; font-weight:700;
+    color:var(--earthy); transition:0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active { background:var(--deep-green); color:#fff; }
+
+  /* ===== CART PAGE ===== */
+  .cart-header { background:linear-gradient(90deg,var(--earthy),#a0522d); padding:40px 32px; color:#fff; }
+  .cart-header h1 { font-family:'Playfair Display',serif; font-size:2.2rem; }
+  .cart-layout { display:grid; grid-template-columns:1fr 360px; gap:32px; max-width:1100px; margin:40px auto; padding:0 32px; }
+  .cart-items { background:#fff; border-radius:16px; padding:24px; box-shadow:0 4px 18px rgba(0,0,0,0.07); }
+  .cart-item { display:flex; align-items:center; gap:16px; padding:16px 0; border-bottom:1px solid var(--light-tan); }
+  .cart-item:last-child { border-bottom:none; }
+  .cart-emoji { font-size:48px; width:64px; text-align:center; }
+  .cart-info { flex:1; }
+  .cart-name { font-weight:700; font-size:1rem; }
+  .cart-cat { font-size:0.8rem; color:var(--saffron); }
+  .cart-qty { display:flex; align-items:center; gap:8px; margin-top:8px; }
+  .qty-btn { background:var(--light-tan); border:none; border-radius:6px; width:28px; height:28px; cursor:pointer; font-size:1rem; font-weight:700; color:var(--earthy); }
+  .qty-val { font-weight:700; min-width:24px; text-align:center; }
+  .cart-price { font-weight:700; color:var(--deep-green); font-size:1.1rem; min-width:70px; text-align:right; }
+  .remove-btn { background:none; border:none; color:#ccc; cursor:pointer; font-size:1.2rem; }
+  .remove-btn:hover { color:var(--red); }
+  .cart-summary { background:#fff; border-radius:16px; padding:28px; box-shadow:0 4px 18px rgba(0,0,0,0.07); height:fit-content; }
+  .summary-title { font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--deep-green); margin-bottom:20px; }
+  .summary-row { display:flex; justify-content:space-between; margin-bottom:12px; font-size:0.95rem; }
+  .summary-total { font-weight:700; font-size:1.1rem; border-top:2px solid var(--light-tan); padding-top:12px; margin-top:8px; }
+  .checkout-btn {
+    width:100%; background:var(--deep-green); color:#fff; border:none; border-radius:10px;
+    padding:15px; font-size:1rem; font-weight:700; cursor:pointer; margin-top:16px;
+    font-family:'Lato',sans-serif; transition:0.2s;
+  }
+  .checkout-btn:hover { background:#3d6b1f; }
+  .empty-cart { text-align:center; padding:60px 20px; }
+  .empty-cart p { font-size:1.1rem; color:#888; margin:16px 0; }
+
+  /* ===== PAYMENT PAGE ===== */
+  .payment-header { background:linear-gradient(90deg,var(--deep-green),var(--saffron)); padding:40px 32px; color:#fff; }
+  .payment-header h1 { font-family:'Playfair Display',serif; font-size:2.2rem; }
+  .payment-layout { display:grid; grid-template-columns:1fr 380px; gap:32px; max-width:1000px; margin:40px auto; padding:0 32px; }
+  .payment-form { background:#fff; border-radius:16px; padding:32px; box-shadow:0 4px 18px rgba(0,0,0,0.07); }
+  .payment-section-title { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--deep-green); margin:24px 0 14px; border-bottom:2px solid var(--light-tan); padding-bottom:8px; }
+  .payment-section-title:first-child { margin-top:0; }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .pay-input {
+    width:100%; padding:11px 14px; border:2px solid #e0d6c0; border-radius:10px;
+    font-size:0.95rem; font-family:'Lato',sans-serif; background:var(--cream);
+    transition:0.2s; outline:none; margin-bottom:4px;
+  }
+  .pay-input:focus { border-color:var(--saffron); background:#fff; }
+  .pay-label { display:block; font-size:0.82rem; font-weight:700; color:#555; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:5px; margin-top:14px; }
+  .pay-methods { display:flex; gap:10px; margin:10px 0; }
+  .pay-method {
+    flex:1; border:2px solid #e0d6c0; border-radius:10px; padding:12px; text-align:center;
+    cursor:pointer; transition:0.2s; font-size:0.85rem; font-weight:700; color:#666;
+  }
+  .pay-method:hover, .pay-method.selected { border-color:var(--saffron); color:var(--saffron); background:#fff9f0; }
+  .pay-method span { display:block; font-size:1.4rem; margin-bottom:4px; }
+  .place-order-btn {
+    width:100%; background:var(--saffron); color:#fff; border:none; border-radius:10px;
+    padding:16px; font-size:1.1rem; font-weight:700; cursor:pointer; margin-top:24px;
+    font-family:'Lato',sans-serif; transition:0.2s;
+  }
+  .place-order-btn:hover { background:#cf7715; }
+  .order-summary-box { background:#fff; border-radius:16px; padding:28px; box-shadow:0 4px 18px rgba(0,0,0,0.07); height:fit-content; }
+
+  /* ===== SUCCESS ===== */
+  .success-page { background:var(--cream); min-height:100vh; display:flex; align-items:center; justify-content:center; }
+  .success-card { background:#fff; border-radius:20px; padding:56px 48px; text-align:center; max-width:480px; box-shadow:0 10px 40px rgba(0,0,0,0.12); }
+  .success-icon { font-size:80px; margin-bottom:16px; }
+  .success-card h2 { font-family:'Playfair Display',serif; font-size:2rem; color:var(--deep-green); margin-bottom:10px; }
+  .success-card p { color:#888; margin-bottom:24px; }
+
+  /* ===== PROFILE ===== */
+  .profile-header { background:linear-gradient(90deg,var(--deep-green),#4a7c28); padding:40px 32px; color:#fff; }
+  .profile-card { background:#fff; border-radius:16px; padding:32px; max-width:700px; margin:40px auto; box-shadow:0 4px 18px rgba(0,0,0,0.07); }
+  .profile-avatar { width:80px; height:80px; background:var(--saffron); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem; color:#fff; font-weight:700; margin-bottom:16px; }
+  .profile-name { font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--deep-green); }
+  .profile-email { color:#888; margin-bottom:24px; }
+  .profile-section { border-top:2px solid var(--light-tan); padding-top:20px; margin-top:20px; }
+  .profile-section h3 { font-weight:700; margin-bottom:12px; color:var(--earthy); }
+  .order-history-item { background:var(--cream); border-radius:10px; padding:14px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; }
+  .order-status { background:var(--success); color:#fff; border-radius:6px; padding:3px 10px; font-size:0.8rem; font-weight:700; }
+  .logout-btn { background:var(--red); color:#fff; border:none; border-radius:8px; padding:10px 24px; font-size:0.95rem; font-weight:700; cursor:pointer; margin-top:20px; }
+
+  /* ===== TOAST ===== */
+  #toast {
+    position:fixed; bottom:28px; right:28px; background:var(--deep-green); color:#fff;
+    padding:14px 22px; border-radius:10px; font-weight:700; display:none; z-index:999;
+    box-shadow:0 4px 20px rgba(0,0,0,0.2); animation:slideUp 0.3s ease;
+  }
+  @keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
+
+  @media(max-width:768px){
+    .cart-layout,.payment-layout{grid-template-columns:1fr;}
+    .hero h1{font-size:2rem;}
+    .products-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));}
+    .form-row{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- ===== LOGIN PAGE ===== -->
+<div id="page-login" class="page active">
+  <div class="auth-bg">
+    <div class="auth-card">
+      <span class="auth-brand">🌿 Authentic Traditional Tastes</span>
+      <div class="auth-title">Welcome Back!</div>
+      <div class="auth-sub">Sign in to your account to continue shopping</div>
+      <div id="login-error" class="auth-error"></div>
+      <div id="login-success" class="auth-success"></div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="login-email" placeholder="you@email.com" />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="login-pass" placeholder="Your password" />
+      </div>
+      <button class="auth-submit" onclick="doLogin()">Sign In →</button>
+      <div class="auth-switch">Don't have an account? <a onclick="showPage('page-register')">Register here</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== REGISTER PAGE ===== -->
+<div id="page-register" class="page">
+  <div class="auth-bg">
+    <div class="auth-card">
+      <span class="auth-brand">🌿 Authentic Traditional Tastes</span>
+      <div class="auth-title">Create Account</div>
+      <div class="auth-sub">Join thousands of happy customers</div>
+      <div id="reg-error" class="auth-error"></div>
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="reg-name" placeholder="Your full name" />
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="reg-email" placeholder="you@email.com" />
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="reg-phone" placeholder="+91 XXXXX XXXXX" />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="reg-pass" placeholder="Min 6 characters" />
+      </div>
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" id="reg-pass2" placeholder="Repeat password" />
+      </div>
+      <button class="auth-submit" onclick="doRegister()">Create Account →</button>
+      <div class="auth-switch">Already have an account? <a onclick="showPage('page-login')">Sign in</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN APP (after login) ===== -->
+<div id="page-home" class="page">
+  <nav>
+    <div class="nav-logo" onclick="showMain('home')">🌿 Authentic Traditional Tastes</div>
+    <div class="nav-links">
+      <button class="nav-btn active-nav" onclick="showMain('home')">Home</button>
+      <button class="nav-btn" onclick="showMain('products')">Products</button>
+      <button class="nav-btn" onclick="showMain('profile')">My Account</button>
+      <button class="cart-btn" onclick="showMain('cart')">🛒 Cart <span id="cart-count">0</span></button>
+    </div>
+  </nav>
+  <div id="main-content"></div>
+</div>
+
+<!-- ===== SUCCESS PAGE ===== -->
+<div id="page-success" class="page">
+  <div class="success-page">
+    <div class="success-card">
+      <div class="success-icon">🎉</div>
+      <h2>Order Placed!</h2>
+      <p>Thank you for shopping at <strong>Authentic Traditional Tastes</strong>! Your order has been confirmed and will be delivered in 3-5 business days.</p>
+      <p><strong>Order ID:</strong> <span id="order-id">DB-00000</span></p>
+      <button class="btn-primary" onclick="afterOrder()">Continue Shopping</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== STATE =====
+let users = JSON.parse(localStorage.getItem('db_users') || '[]');
+let currentUser = JSON.parse(localStorage.getItem('db_current') || 'null');
+let cart = JSON.parse(localStorage.getItem('db_cart') || '[]');
+let orders = JSON.parse(localStorage.getItem('db_orders') || '[]');
+let currentView = 'home';
+let selectedCategory = 'all';
+let paymentMethod = 'card';
+
+// ===== PRODUCTS DATA =====
+const PRODUCTS = [
+  // Traditional Food (20)
+  {id:1,cat:'traditional',name:'Rajma Masala',price:120,emoji:'🍛',desc:'Rich kidney bean curry with aromatic spices'},
+  {id:2,cat:'traditional',name:'Dal Makhani',price:150,emoji:'🫘',desc:'Slow-cooked black lentils in buttery gravy'},
+  {id:3,cat:'traditional',name:'Chole Bhature',price:90,emoji:'🥘',desc:'Spicy chickpeas with fluffy fried bread'},
+  {id:4,cat:'traditional',name:'Biryani Masala Mix',price:80,emoji:'🍚',desc:'Authentic biryani spice blend, 200g pack'},
+  {id:5,cat:'traditional',name:'Sarson Ka Saag',price:110,emoji:'🥬',desc:'Classic Punjabi mustard greens dish'},
+  {id:6,cat:'traditional',name:'Baingan Bharta',price:95,emoji:'🍆',desc:'Smoky roasted eggplant preparation'},
+  {id:7,cat:'traditional',name:'Aloo Paratha Mix',price:70,emoji:'🫓',desc:'Ready-mix for stuffed potato flatbread'},
+  {id:8,cat:'traditional',name:'Paneer Butter Masala',price:180,emoji:'🧀',desc:'Cottage cheese in rich tomato gravy'},
+  {id:9,cat:'traditional',name:'Methi Thepla',price:65,emoji:'🌾',desc:'Fenugreek flavoured Gujarati flatbread'},
+  {id:10,cat:'traditional',name:'Halwa Prasad Mix',price:85,emoji:'🍮',desc:'Traditional semolina halwa blend'},
+  {id:11,cat:'traditional',name:'Kadhi Pakora',price:100,emoji:'🥣',desc:'Yogurt-based curry with gram flour fritters'},
+  {id:12,cat:'traditional',name:'Pav Bhaji Masala',price:75,emoji:'🌶️',desc:'Mumbai street food spice blend, 150g'},
+  {id:13,cat:'traditional',name:'Gatte Ki Sabzi',price:110,emoji:'🍡',desc:'Rajasthani gram flour dumplings in gravy'},
+  {id:14,cat:'traditional',name:'Khichdi Mix',price:60,emoji:'🍲',desc:'Comforting rice and lentil blend'},
+  {id:15,cat:'traditional',name:'Chana Dal Tadka',price:88,emoji:'🌱',desc:'Split chickpea lentil with spiced tempering'},
+  {id:16,cat:'traditional',name:'Bhindi Masala',price:95,emoji:'🥒',desc:'Okra stir-fried with onions and spices'},
+  {id:17,cat:'traditional',name:'Dum Aloo Masala',price:125,emoji:'🥔',desc:'Whole baby potatoes in spicy gravy'},
+  {id:18,cat:'traditional',name:'Matar Paneer',price:165,emoji:'🌿',desc:'Green peas and cottage cheese in gravy'},
+  {id:19,cat:'traditional',name:'Pulao Rice Mix',price:72,emoji:'🍙',desc:'Fragrant basmati rice with spices'},
+  {id:20,cat:'traditional',name:'Sooji Upma Mix',price:55,emoji:'🥞',desc:'Semolina breakfast dish blend'},
+
+  // Pickles (18)
+  {id:21,cat:'pickles',name:'Mango Achaar',price:85,emoji:'🥭',desc:'Tangy raw mango pickle in mustard oil'},
+  {id:22,cat:'pickles',name:'Mixed Veg Pickle',price:95,emoji:'🥕',desc:'Carrot, turnip, chilli in brine'},
+  {id:23,cat:'pickles',name:'Lemon Pickle',price:75,emoji:'🍋',desc:'Sun-dried lemon in spiced oil'},
+  {id:24,cat:'pickles',name:'Chilli Pickle',price:70,emoji:'🌶️',desc:'Green chillies in mustard and vinegar'},
+  {id:25,cat:'pickles',name:'Garlic Pickle',price:90,emoji:'🧄',desc:'Whole garlic cloves in tangy brine'},
+  {id:26,cat:'pickles',name:'Amla Pickle',price:80,emoji:'🍈',desc:'Indian gooseberry pickle, rich in Vit C'},
+  {id:27,cat:'pickles',name:'Ginger Pickle',price:78,emoji:'🫚',desc:'Tender ginger in mustard oil'},
+  {id:28,cat:'pickles',name:'Tomato Pickle',price:88,emoji:'🍅',desc:'Sun-dried tomato in spiced oil'},
+  {id:29,cat:'pickles',name:'Cauliflower Pickle',price:82,emoji:'🥦',desc:'Crispy cauliflower in brine'},
+  {id:30,cat:'pickles',name:'Bamboo Shoot Pickle',price:110,emoji:'🎋',desc:'Northeastern style fermented bamboo'},
+  {id:31,cat:'pickles',name:'Karela Pickle',price:72,emoji:'🥒',desc:'Bitter gourd pickle, great for digestion'},
+  {id:32,cat:'pickles',name:'Raw Papaya Pickle',price:84,emoji:'🫐',desc:'Green papaya in spiced mustard oil'},
+  {id:33,cat:'pickles',name:'Turnip Pickle',price:68,emoji:'🥕',desc:'Classic Punjabi turnip in salt brine'},
+  {id:34,cat:'pickles',name:'Jackfruit Pickle',price:105,emoji:'🌴',desc:'Raw jackfruit in tangy spiced oil'},
+  {id:35,cat:'pickles',name:'Onion Vinegar Pickle',price:76,emoji:'🧅',desc:'Baby onions in apple cider vinegar'},
+  {id:36,cat:'pickles',name:'Mushroom Pickle',price:120,emoji:'🍄',desc:'Forest mushrooms in spiced oil'},
+  {id:37,cat:'pickles',name:'Stuffed Chilli Pickle',price:95,emoji:'🌶️',desc:'Green chillies stuffed with spice paste'},
+  {id:38,cat:'pickles',name:'Kerala Pickle Mix',price:130,emoji:'🌴',desc:'Traditional South Indian mixed pickle'},
+
+  // Fertilizers (17)
+  {id:39,cat:'fertilizers',name:'Vermicompost',price:250,emoji:'🪱',desc:'Worm castings for rich soil nutrition'},
+  {id:40,cat:'fertilizers',name:'Neem Cake',price:180,emoji:'🌳',desc:'Organic neem-based pest repellent fertilizer'},
+  {id:41,cat:'fertilizers',name:'Bone Meal',price:220,emoji:'🦴',desc:'Natural phosphorus source for root growth'},
+  {id:42,cat:'fertilizers',name:'Panchagavya',price:160,emoji:'🐄',desc:'Traditional 5-cow-product bio-stimulant'},
+  {id:43,cat:'fertilizers',name:'Jeevamrutha',price:140,emoji:'💧',desc:'Fermented liquid manure for microbes'},
+  {id:44,cat:'fertilizers',name:'Wood Ash',price:90,emoji:'🪨',desc:'Potassium-rich natural wood ash'},
+  {id:45,cat:'fertilizers',name:'Mustard Cake',price:175,emoji:'🌻',desc:'Oil cake rich in nitrogen and sulfur'},
+  {id:46,cat:'fertilizers',name:'Seaweed Extract',price:310,emoji:'🌊',desc:'Liquid seaweed for growth hormones'},
+  {id:47,cat:'fertilizers',name:'Cow Dung Compost',price:130,emoji:'🐄',desc:'Aged cow dung, fully composted'},
+  {id:48,cat:'fertilizers',name:'Groundnut Cake',price:195,emoji:'🥜',desc:'High-protein nitrogen-rich oil cake'},
+  {id:49,cat:'fertilizers',name:'Bio NPK',price:280,emoji:'🧪',desc:'Biologically fixed nitrogen, phosphorus, potassium'},
+  {id:50,cat:'fertilizers',name:'Trichoderma Powder',price:245,emoji:'🍃',desc:'Beneficial fungus for disease control'},
+  {id:51,cat:'fertilizers',name:'Phosphate Solubiliser',price:260,emoji:'⚗️',desc:'Microbial phosphate for better absorption'},
+  {id:52,cat:'fertilizers',name:'Azotobacter Culture',price:240,emoji:'🔬',desc:'Nitrogen-fixing soil bacteria culture'},
+  {id:53,cat:'fertilizers',name:'Granite Dust',price:110,emoji:'🪨',desc:'Slow-release potassium and minerals'},
+  {id:54,cat:'fertilizers',name:'Fish Meal',price:330,emoji:'🐟',desc:'Dried fish protein for nitrogen boost'},
+  {id:55,cat:'fertilizers',name:'Humic Acid',price:290,emoji:'🌿',desc:'Soil conditioner from leonardite ore'},
+];
+
+// ===== PAGE NAV =====
+function showPage(pid) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(pid).classList.add('active');
+}
+
+function showMain(view) {
+  currentView = view;
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active-nav'));
+  if(view==='home') document.querySelectorAll('.nav-btn')[0].classList.add('active-nav');
+  if(view==='products') document.querySelectorAll('.nav-btn')[1].classList.add('active-nav');
+  if(view==='profile') document.querySelectorAll('.nav-btn')[2].classList.add('active-nav');
+  renderMain();
+}
+
+function renderMain() {
+  const c = document.getElementById('main-content');
+  if(currentView==='home') c.innerHTML = renderHome();
+  else if(currentView==='products') c.innerHTML = renderProducts();
+  else if(currentView==='cart') c.innerHTML = renderCart();
+  else if(currentView==='payment') c.innerHTML = renderPayment();
+  else if(currentView==='profile') c.innerHTML = renderProfile();
+}
+
+// ===== AUTH =====
+function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass = document.getElementById('login-pass').value;
+  const errEl = document.getElementById('login-error');
+  const sucEl = document.getElementById('login-success');
+  errEl.style.display='none'; sucEl.style.display='none';
+
+  if(!email||!pass){errEl.textContent='Please fill in all fields.';errEl.style.display='block';return;}
+  
+  const user = users.find(u=>u.email===email&&u.password===pass);
+  if(!user){errEl.textContent='Invalid email or password.';errEl.style.display='block';return;}
+
+  currentUser = user;
+  localStorage.setItem('db_current', JSON.stringify(currentUser));
+  sucEl.textContent='Login successful! Welcome back, '+user.name+'!';
+  sucEl.style.display='block';
+  setTimeout(()=>{showPage('page-home');renderMain();},900);
+}
+
+function doRegister() {
+  const name = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const phone = document.getElementById('reg-phone').value.trim();
+  const pass = document.getElementById('reg-pass').value;
+  const pass2 = document.getElementById('reg-pass2').value;
+  const errEl = document.getElementById('reg-error');
+  errEl.style.display='none';
+
+  if(!name||!email||!phone||!pass||!pass2){errEl.textContent='Please fill in all fields.';errEl.style.display='block';return;}
+  if(!email.includes('@')){errEl.textContent='Please enter a valid email.';errEl.style.display='block';return;}
+  if(pass.length<6){errEl.textContent='Password must be at least 6 characters.';errEl.style.display='block';return;}
+  if(pass!==pass2){errEl.textContent='Passwords do not match.';errEl.style.display='block';return;}
+  if(users.find(u=>u.email===email)){errEl.textContent='An account with this email already exists.';errEl.style.display='block';return;}
+
+  const user = {id:Date.now(),name,email,phone,password:pass,joined:new Date().toLocaleDateString()};
+  users.push(user);
+  localStorage.setItem('db_users', JSON.stringify(users));
+  currentUser = user;
+  localStorage.setItem('db_current', JSON.stringify(currentUser));
+  showPage('page-home');
+  renderMain();
+  toast('🎉 Account created! Welcome, '+name+'!');
+}
+
+function doLogout() {
+  currentUser = null;
+  localStorage.removeItem('db_current');
+  cart = [];
+  localStorage.removeItem('db_cart');
+  updateCartCount();
+  showPage('page-login');
+  document.getElementById('login-email').value='';
+  document.getElementById('login-pass').value='';
+  document.getElementById('login-error').style.display='none';
+  document.getElementById('login-success').style.display='none';
+}
+
+// ===== GET ALL PRODUCTS (including admin/seller added) =====
+function getAllShopProducts() {
+  const cp = JSON.parse(localStorage.getItem('db_custom_products')||'[]');
+  return [...PRODUCTS, ...cp];
+}
+
+// ===== HOME =====
+function renderHome() {
+  const allProds = getAllShopProducts();
+  const featured = allProds.filter((_,i)=>i%4===0).slice(0,8);
+  return `
+  <div style="background:linear-gradient(135deg,var(--deep-green) 0%,#4a7c28 60%,var(--saffron) 100%);padding:80px 40px;text-align:center;color:#fff;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:-40px;left:-30px;font-size:180px;opacity:0.06;">🌿</div>
+    <div style="position:absolute;bottom:-20px;right:10px;font-size:140px;opacity:0.06;">🥫</div>
+    <h1 style="font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;margin-bottom:16px;line-height:1.15;">Fresh. Traditional. <span style="color:var(--saffron);">Authentic.</span></h1>
+    <p style="font-size:1.15rem;opacity:0.9;max-width:560px;margin:0 auto 32px;">Bringing you the finest traditional foods, hand-crafted pickles, and organic fertilizers straight from the farms.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn-primary" onclick="showMain('products')">Shop Now →</button>
+      <button class="btn-outline" onclick="filterProducts('pickles');showMain('products')">View Pickles</button>
+    </div>
+  </div>
+  <div style="background:var(--earthy);padding:14px 32px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+    <div style="color:#fff;display:flex;align-items:center;gap:8px;font-size:0.9rem;"><span>🚚</span> Free delivery above ₹500</div>
+    <div style="color:#fff;display:flex;align-items:center;gap:8px;font-size:0.9rem;margin:0 20px;"><span>🌿</span> 100% Natural</div>
+    <div style="color:#fff;display:flex;align-items:center;gap:8px;font-size:0.9rem;"><span>⭐</span> 10,000+ Happy Customers</div>
+  </div>
+  <div class="section">
+    <div class="section-title">Shop by Category</div>
+    <div class="section-sub">Find what you're looking for</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+      ${[
+        {key:'traditional',emoji:'🍛',label:'Traditional Food',desc:'20 Products',color:'#2D5016'},
+        {key:'pickles',emoji:'🥫',label:'Pickles & Achaar',desc:'18 Products',color:'#8B4513'},
+        {key:'fertilizers',emoji:'🌱',label:'Organic Fertilizers',desc:'17 Products',color:'#2D5016'},
+      ].map(c=>`
+      <div onclick="filterProducts('${c.key}');showMain('products');"
+        style="background:${c.color};border-radius:16px;padding:32px;text-align:center;cursor:pointer;transition:0.2s;color:#fff;"
+        onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+        <div style="font-size:56px;margin-bottom:12px;">${c.emoji}</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;">${c.label}</div>
+        <div style="opacity:0.7;font-size:0.9rem;margin-top:4px;">${c.desc}</div>
+      </div>`).join('')}
+    </div>
+  </div>
+  <div class="section" style="background:var(--light-tan);border-radius:20px;margin:0 32px 32px;">
+    <div class="section-title">Featured Products</div>
+    <div class="section-sub">Hand-picked favourites</div>
+    <div class="products-grid">
+      ${featured.map(p=>productCard(p)).join('')}
+    </div>
+    <div style="text-align:center;margin-top:32px;">
+      <button class="btn-primary" onclick="showMain('products')">View All Products →</button>
+    </div>
+  </div>
+  <div style="background:var(--deep-green);color:#fff;padding:40px;text-align:center;">
+    <div style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:8px;">Why Authentic Traditional Tastes?</div>
+    <div style="display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin-top:20px;">
+      ${['🌿 Farm Fresh','🤝 Trusted Farmers','📦 Safe Packaging','💯 Quality Assured'].map(t=>`<div style="font-size:0.95rem;opacity:0.85;">${t}</div>`).join('')}
+    </div>
+  </div>
+  `;
+}
+
+// ===== PRODUCTS =====
+let activeFilter = 'all';
+function filterProducts(cat){ activeFilter = cat; }
+
+function renderProducts() {
+  const allProds = getAllShopProducts();
+  const filtered = activeFilter==='all' ? allProds : allProds.filter(p=>p.cat===activeFilter);
+  return `
+  <div class="products-header">
+    <h1>🛒 All Products</h1>
+    <p style="opacity:0.8;margin-top:6px;">${getAllShopProducts().length} products across 3 categories</p>
+  </div>
+  <div class="filter-bar">
+    <button class="filter-btn ${activeFilter==='all'?'active':''}" onclick="activeFilter='all';renderMain()">🌐 All</button>
+    <button class="filter-btn ${activeFilter==='traditional'?'active':''}" onclick="activeFilter='traditional';renderMain()">🍛 Traditional Food</button>
+    <button class="filter-btn ${activeFilter==='pickles'?'active':''}" onclick="activeFilter='pickles';renderMain()">🥫 Pickles</button>
+    <button class="filter-btn ${activeFilter==='fertilizers'?'active':''}" onclick="activeFilter='fertilizers';renderMain()">🌱 Fertilizers</button>
+  </div>
+  <div class="section">
+    <div class="section-title">${activeFilter==='all'?'All Products':activeFilter==='traditional'?'Traditional Food':activeFilter==='pickles'?'Pickles & Achaar':'Organic Fertilizers'}</div>
+    <div class="section-sub">Showing ${filtered.length} products</div>
+    <div class="products-grid">${filtered.map(p=>productCard(p)).join('')}</div>
+  </div>`;
+}
+
+function productCard(p) {
+  return `<div class="product-card">
+    <div class="product-img">${p.emoji}</div>
+    <div class="product-info">
+      <div class="product-cat">${p.cat==='traditional'?'Traditional Food':p.cat==='pickles'?'Pickles':p.cat==='fertilizers'?'Fertilizer':p.cat}</div>
+      <div class="product-name">${p.name}</div>
+      <div class="product-desc">${p.desc}</div>
+      <div class="product-bottom">
+        <div class="product-price">₹${p.price}</div>
+        <button class="add-cart-btn" onclick="addToCart(${p.id})">+ Add</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ===== CART =====
+function addToCart(id) {
+  const p = getAllShopProducts().find(x=>x.id===id);
+  const existing = cart.find(x=>x.id===id);
+  if(existing) existing.qty++;
+  else cart.push({...p, qty:1});
+  localStorage.setItem('db_cart', JSON.stringify(cart));
+  updateCartCount();
+  toast(`✅ ${p.name} added to cart!`);
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(x=>x.id!==id);
+  localStorage.setItem('db_cart', JSON.stringify(cart));
+  updateCartCount();
+  renderMain();
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(x=>x.id===id);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty<=0) { removeFromCart(id); return; }
+  localStorage.setItem('db_cart', JSON.stringify(cart));
+  renderMain();
+}
+
+function updateCartCount() {
+  const total = cart.reduce((s,x)=>s+x.qty,0);
+  document.getElementById('cart-count').textContent = total;
+}
+
+function cartTotal() { return cart.reduce((s,x)=>s+(x.price*x.qty),0); }
+
+function renderCart() {
+  if(cart.length===0) return `
+    <div class="cart-header"><h1>🛒 My Cart</h1></div>
+    <div class="section"><div class="empty-cart">
+      <div style="font-size:80px;">🛒</div>
+      <p>Your cart is empty!</p>
+      <button class="btn-primary" onclick="showMain('products')">Start Shopping</button>
+    </div></div>`;
+
+  const subtotal = cartTotal();
+  const delivery = subtotal >= 500 ? 0 : 50;
+  const total = subtotal + delivery;
+
+  return `
+  <div class="cart-header"><h1>🛒 My Cart</h1><p style="opacity:0.8;margin-top:6px;">${cart.reduce((s,x)=>s+x.qty,0)} items</p></div>
+  <div class="cart-layout">
+    <div class="cart-items">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--deep-green);margin-bottom:8px;">Cart Items</h3>
+      ${cart.map(item=>`
+      <div class="cart-item">
+        <div class="cart-emoji">${item.emoji}</div>
+        <div class="cart-info">
+          <div class="cart-name">${item.name}</div>
+          <div class="cart-cat">${item.cat==='traditional'?'Traditional Food':item.cat==='pickles'?'Pickles':'Fertilizer'}</div>
+          <div class="cart-qty">
+            <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
+            <span class="qty-val">${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
+          </div>
+        </div>
+        <div class="cart-price">₹${item.price*item.qty}</div>
+        <button class="remove-btn" onclick="removeFromCart(${item.id})">✕</button>
+      </div>`).join('')}
+    </div>
+    <div class="cart-summary">
+      <div class="summary-title">Order Summary</div>
+      <div class="summary-row"><span>Subtotal</span><span>₹${subtotal}</span></div>
+      <div class="summary-row"><span>Delivery</span><span>${delivery===0?'<span style="color:var(--success)">FREE</span>':'₹'+delivery}</span></div>
+      ${delivery>0?'<div style="font-size:0.8rem;color:#888;margin-top:-6px;margin-bottom:10px;">Add ₹'+(500-subtotal)+' more for free delivery</div>':''}
+      <div class="summary-row summary-total"><span>Total</span><span>₹${total}</span></div>
+      <button class="checkout-btn" onclick="currentView='payment';renderMain()">Proceed to Payment →</button>
+      <button onclick="showMain('products')" style="width:100%;background:none;border:2px solid var(--light-tan);border-radius:10px;padding:12px;margin-top:10px;cursor:pointer;font-weight:700;color:var(--earthy);font-family:'Lato',sans-serif;">Continue Shopping</button>
+    </div>
+  </div>`;
+}
+
+// ===== PAYMENT =====
+function renderPayment() {
+  const subtotal = cartTotal();
+  const delivery = subtotal >= 500 ? 0 : 50;
+  const total = subtotal + delivery;
+  return `
+  <div class="payment-header"><h1>💳 Checkout</h1><p style="opacity:0.8;margin-top:6px;">Secure payment</p></div>
+  <div class="payment-layout">
+    <div class="payment-form">
+      <div class="payment-section-title">📦 Delivery Address</div>
+      <label class="pay-label">Full Name</label>
+      <input class="pay-input" id="p-name" value="${currentUser?currentUser.name:''}" placeholder="Full name">
+      <label class="pay-label">Phone</label>
+      <input class="pay-input" id="p-phone" value="${currentUser?currentUser.phone||'':''}" placeholder="+91 XXXXX XXXXX">
+      <label class="pay-label">Address Line 1</label>
+      <input class="pay-input" id="p-addr1" placeholder="House No., Street Name">
+      <label class="pay-label">City & State</label>
+      <div class="form-row">
+        <input class="pay-input" id="p-city" placeholder="City">
+        <input class="pay-input" id="p-state" placeholder="State">
+      </div>
+      <label class="pay-label">PIN Code</label>
+      <input class="pay-input" id="p-pin" placeholder="6-digit PIN">
+
+      <div class="payment-section-title">💳 Payment Method</div>
+      <div class="pay-methods">
+        <div class="pay-method selected" id="pm-card" onclick="selectPM('card')"><span>💳</span>Card</div>
+        <div class="pay-method" id="pm-upi" onclick="selectPM('upi')"><span>📱</span>UPI</div>
+        <div class="pay-method" id="pm-cod" onclick="selectPM('cod')"><span>💵</span>COD</div>
+        <div class="pay-method" id="pm-netb" onclick="selectPM('netb')"><span>🏦</span>Net Banking</div>
+      </div>
+
+      <div id="card-fields">
+        <label class="pay-label">Card Number</label>
+        <input class="pay-input" id="p-card" placeholder="1234 5678 9012 3456" maxlength="19"
+          oninput="this.value=this.value.replace(/[^0-9]/g,'').replace(/(.{4})/g,'$1 ').trim()">
+        <div class="form-row">
+          <div>
+            <label class="pay-label">Expiry</label>
+            <input class="pay-input" id="p-exp" placeholder="MM/YY" maxlength="5"
+              oninput="let v=this.value.replace(/\D/g,'');if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2);this.value=v;">
+          </div>
+          <div>
+            <label class="pay-label">CVV</label>
+            <input class="pay-input" id="p-cvv" placeholder="123" maxlength="3" type="password">
+          </div>
+        </div>
+      </div>
+
+      <div id="upi-fields" style="display:none;">
+        <label class="pay-label">UPI ID</label>
+        <input class="pay-input" id="p-upi" placeholder="yourname@upi">
+      </div>
+      <div id="cod-fields" style="display:none;">
+        <div style="background:var(--light-tan);border-radius:10px;padding:16px;margin-top:8px;color:var(--earthy);font-size:0.95rem;">
+          💵 Pay ₹${total} when your order is delivered. Our delivery partner will collect cash at your doorstep.
+        </div>
+      </div>
+      <div id="netb-fields" style="display:none;">
+        <label class="pay-label">Select Bank</label>
+        <select class="pay-input" id="p-bank">
+          <option>State Bank of India</option><option>HDFC Bank</option><option>ICICI Bank</option>
+          <option>Axis Bank</option><option>Kotak Mahindra</option><option>Punjab National Bank</option>
+        </select>
+      </div>
+
+      <button class="place-order-btn" onclick="placeOrder()">🛒 Place Order – ₹${total}</button>
+    </div>
+    <div class="order-summary-box">
+      <div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--deep-green);margin-bottom:16px;">Order Summary</div>
+      ${cart.map(i=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--light-tan);font-size:0.9rem;">
+        <span>${i.emoji} ${i.name} × ${i.qty}</span><span>₹${i.price*i.qty}</span></div>`).join('')}
+      <div style="display:flex;justify-content:space-between;padding:10px 0;"><span>Subtotal</span><span>₹${subtotal}</span></div>
+      <div style="display:flex;justify-content:space-between;padding:4px 0;"><span>Delivery</span><span>${delivery===0?'FREE':'₹'+delivery}</span></div>
+      <div style="display:flex;justify-content:space-between;padding:12px 0;border-top:2px solid var(--light-tan);font-weight:700;font-size:1.1rem;margin-top:8px;">
+        <span>Total</span><span>₹${total}</span>
+      </div>
+      <div style="background:var(--light-tan);border-radius:8px;padding:12px;margin-top:8px;font-size:0.83rem;color:var(--earthy);">
+        🔒 Your payment information is secured with 256-bit encryption.
+      </div>
+    </div>
+  </div>`;
+}
+
+function selectPM(pm) {
+  paymentMethod = pm;
+  ['card','upi','cod','netb'].forEach(m=>{
+    document.getElementById('pm-'+m).classList.remove('selected');
+    const el = document.getElementById(m+'-fields');
+    if(el) el.style.display='none';
+  });
+  document.getElementById('pm-'+pm).classList.add('selected');
+  const fmap={card:'card-fields',upi:'upi-fields',cod:'cod-fields',netb:'netb-fields'};
+  document.getElementById(fmap[pm]).style.display='block';
+}
+
+function placeOrder() {
+  const name = document.getElementById('p-name').value.trim();
+  const phone = document.getElementById('p-phone').value.trim();
+  const addr = document.getElementById('p-addr1').value.trim();
+  const city = document.getElementById('p-city').value.trim();
+  const pin = document.getElementById('p-pin').value.trim();
+  if(!name||!phone||!addr||!city||!pin){toast('⚠️ Please fill in all address fields!');return;}
+  if(pin.length!==6||isNaN(pin)){toast('⚠️ Please enter a valid 6-digit PIN code!');return;}
+  if(paymentMethod==='card'){
+    const card=document.getElementById('p-card').value.replace(/\s/g,'');
+    const exp=document.getElementById('p-exp').value;
+    const cvv=document.getElementById('p-cvv').value;
+    if(card.length<16||exp.length<5||cvv.length<3){toast('⚠️ Please enter valid card details!');return;}
+  }
+  if(paymentMethod==='upi'){
+    const upi=document.getElementById('p-upi').value.trim();
+    if(!upi.includes('@')){toast('⚠️ Please enter a valid UPI ID!');return;}
+  }
+
+  const orderId = 'DB-' + Math.floor(100000+Math.random()*900000);
+  const order = {id:orderId,items:[...cart],total:cartTotal(),date:new Date().toLocaleDateString(),status:'Confirmed'};
+  orders.push(order);
+  localStorage.setItem('db_orders', JSON.stringify(orders));
+  cart = [];
+  localStorage.setItem('db_cart', JSON.stringify(cart));
+  updateCartCount();
+  document.getElementById('order-id').textContent = orderId;
+  showPage('page-success');
+}
+
+function afterOrder() {
+  showPage('page-home');
+  currentView='home';
+  renderMain();
+}
+
+// ===== PROFILE =====
+function renderProfile() {
+  return `
+  <div class="profile-header"><h1>👤 My Account</h1></div>
+  <div style="max-width:700px;margin:40px auto;padding:0 32px;">
+    <div class="profile-card">
+      <div class="profile-avatar">${currentUser.name[0].toUpperCase()}</div>
+      <div class="profile-name">${currentUser.name}</div>
+      <div class="profile-email">📧 ${currentUser.email}</div>
+      ${currentUser.phone?`<div style="color:#888;font-size:0.9rem;margin-top:-10px;margin-bottom:16px;">📱 ${currentUser.phone}</div>`:''}
+      <div style="background:var(--light-tan);border-radius:10px;padding:14px;display:flex;gap:32px;">
+        <div><div style="font-size:1.4rem;font-weight:700;color:var(--deep-green);">${orders.length}</div><div style="font-size:0.85rem;color:#888;">Orders</div></div>
+        <div><div style="font-size:1.4rem;font-weight:700;color:var(--saffron);">₹${orders.reduce((s,o)=>s+o.total,0)}</div><div style="font-size:0.85rem;color:#888;">Total Spent</div></div>
+        <div><div style="font-size:1.4rem;font-weight:700;color:var(--earthy);">${new Date(currentUser.joined).getFullYear()}</div><div style="font-size:0.85rem;color:#888;">Member Since</div></div>
+      </div>
+      <div class="profile-section">
+        <h3>📦 Order History</h3>
+        ${orders.length===0?'<div style="color:#888;padding:16px 0;">No orders yet. <a href="#" onclick="showMain(\'products\')" style="color:var(--saffron)">Start shopping!</a></div>':
+          [...orders].reverse().map(o=>`
+          <div class="order-history-item">
+            <div>
+              <div style="font-weight:700;">${o.id}</div>
+              <div style="font-size:0.85rem;color:#888;">${o.date} · ${o.items.length} items</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-weight:700;">₹${o.total}</div>
+              <div class="order-status">${o.status}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+      <button class="logout-btn" onclick="doLogout()">Sign Out</button>
+    </div>
+  </div>`;
+}
+
+// ===== TOAST =====
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.display='block';
+  setTimeout(()=>t.style.display='none',2600);
+}
+
+// ===== INIT =====
+window.onload = function() {
+  // seed stock for all products if not set
+  let stock = JSON.parse(localStorage.getItem('db_stock')||'{}');
+  PRODUCTS.forEach(p=>{ if(stock[p.id]===undefined) stock[p.id]=50; });
+  localStorage.setItem('db_stock',JSON.stringify(stock));
+
+  if(currentUser) {
+    showPage('page-home');
+    renderMain();
+    updateCartCount();
+  } else {
+    showPage('page-login');
+  }
+  document.getElementById('login-pass').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin();});
+  document.getElementById('login-email').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin();});
+};
+</script>
+
+<!-- ======================================================
+     ADMIN LOGIN PAGE
+======================================================= -->
+<div id="page-admin-login" class="page">
+  <div class="auth-bg" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 60%,#0f3460 100%);">
+    <div class="auth-card">
+      <span class="auth-brand" style="color:#e94560;">🔐 Admin Portal</span>
+      <div class="auth-title" style="color:#1a1a2e;">Admin Login</div>
+      <div class="auth-sub">Access the management dashboard</div>
+      <div id="admin-login-error" class="auth-error"></div>
+      <div class="form-group">
+        <label>Admin Email</label>
+        <input type="email" id="admin-login-email" placeholder="admin@att.com" />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="admin-login-pass" placeholder="Admin password" />
+      </div>
+      <button class="auth-submit" style="background:#0f3460;" onclick="doAdminLogin()">Access Dashboard →</button>
+      <div class="auth-switch">New admin? <a onclick="showPage('page-admin-register')">Register here</a></div>
+      <div class="auth-switch" style="margin-top:8px;"><a onclick="showPage('page-login')" style="color:#888;">← Back to Customer Login</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     ADMIN REGISTER PAGE
+======================================================= -->
+<div id="page-admin-register" class="page">
+  <div class="auth-bg" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 60%,#0f3460 100%);">
+    <div class="auth-card">
+      <span class="auth-brand" style="color:#e94560;">🔐 Admin Portal</span>
+      <div class="auth-title" style="color:#1a1a2e;">Register Admin</div>
+      <div class="auth-sub">Create a new admin account</div>
+      <div id="admin-reg-error" class="auth-error"></div>
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="admin-reg-name" placeholder="Admin name" />
+      </div>
+      <div class="form-group">
+        <label>Admin Email</label>
+        <input type="email" id="admin-reg-email" placeholder="admin@att.com" />
+      </div>
+      <div class="form-group">
+        <label>Secret Key</label>
+        <input type="password" id="admin-reg-secret" placeholder="Enter secret key" />
+        <div style="font-size:0.78rem;color:#aaa;margin-top:4px;">Use: <strong>ATT@ADMIN2024</strong></div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="admin-reg-pass" placeholder="Min 6 characters" />
+      </div>
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" id="admin-reg-pass2" placeholder="Repeat password" />
+      </div>
+      <button class="auth-submit" style="background:#0f3460;" onclick="doAdminRegister()">Create Admin Account →</button>
+      <div class="auth-switch"><a onclick="showPage('page-admin-login')">← Back to Admin Login</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     ADMIN DASHBOARD PAGE
+======================================================= -->
+<div id="page-admin" class="page">
+  <nav style="background:#0f3460;">
+    <div class="nav-logo" style="color:#e94560;font-size:1.3rem;">🔐 Admin Dashboard</div>
+    <div class="nav-links">
+      <button class="nav-btn" onclick="showAdmin('overview')">📊 Overview</button>
+      <button class="nav-btn" onclick="showAdmin('products')">📦 Products</button>
+      <button class="nav-btn" onclick="showAdmin('addproduct')">➕ Add Product</button>
+      <button class="nav-btn" onclick="showAdmin('orders')">🛒 Orders</button>
+      <button class="nav-btn" onclick="showAdmin('sellers')">🤝 Sellers</button>
+      <button class="nav-btn" onclick="showAdmin('users')">👥 Users</button>
+      <button class="nav-btn" style="color:#e94560;" onclick="doAdminLogout()">Logout</button>
+    </div>
+  </nav>
+  <div id="admin-content"></div>
+</div>
+
+<!-- ======================================================
+     SELLER LOGIN PAGE
+======================================================= -->
+<div id="page-seller-login" class="page">
+  <div class="auth-bg" style="background:linear-gradient(135deg,#1b4332 0%,#2d6a4f 60%,#40916c 100%);">
+    <div class="auth-card">
+      <span class="auth-brand" style="color:#52b788;">🏪 Seller Portal</span>
+      <div class="auth-title" style="color:#1b4332;">Seller Login</div>
+      <div class="auth-sub">Access your seller dashboard</div>
+      <div id="seller-login-error" class="auth-error"></div>
+      <div class="form-group">
+        <label>Seller Email</label>
+        <input type="email" id="seller-login-email" placeholder="seller@email.com" />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="seller-login-pass" placeholder="Your password" />
+      </div>
+      <button class="auth-submit" style="background:#1b4332;" onclick="doSellerLogin()">Access Seller Panel →</button>
+      <div class="auth-switch">New seller? <a onclick="showPage('page-seller-register')" style="color:#52b788;">Register here</a></div>
+      <div class="auth-switch" style="margin-top:8px;"><a onclick="showPage('page-login')" style="color:#888;">← Back to Customer Login</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     SELLER REGISTER PAGE
+======================================================= -->
+<div id="page-seller-register" class="page">
+  <div class="auth-bg" style="background:linear-gradient(135deg,#1b4332 0%,#2d6a4f 60%,#40916c 100%);">
+    <div class="auth-card">
+      <span class="auth-brand" style="color:#52b788;">🏪 Seller Portal</span>
+      <div class="auth-title" style="color:#1b4332;">Become a Seller</div>
+      <div class="auth-sub">Join our marketplace and start selling</div>
+      <div id="seller-reg-error" class="auth-error"></div>
+      <div class="form-group">
+        <label>Business / Shop Name</label>
+        <input type="text" id="seller-reg-biz" placeholder="Your shop name" />
+      </div>
+      <div class="form-group">
+        <label>Owner Full Name</label>
+        <input type="text" id="seller-reg-name" placeholder="Owner name" />
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="seller-reg-email" placeholder="seller@email.com" />
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="seller-reg-phone" placeholder="+91 XXXXX XXXXX" />
+      </div>
+      <div class="form-group">
+        <label>Category You Sell</label>
+        <select id="seller-reg-cat" style="width:100%;padding:12px 16px;border:2px solid #e0d6c0;border-radius:10px;font-size:1rem;background:var(--cream);outline:none;">
+          <option value="traditional">Traditional Food</option>
+          <option value="pickles">Pickles & Achaar</option>
+          <option value="fertilizers">Organic Fertilizers</option>
+          <option value="all">All Categories</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="seller-reg-pass" placeholder="Min 6 characters" />
+      </div>
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" id="seller-reg-pass2" placeholder="Repeat password" />
+      </div>
+      <button class="auth-submit" style="background:#1b4332;" onclick="doSellerRegister()">Register as Seller →</button>
+      <div class="auth-switch"><a onclick="showPage('page-seller-login')" style="color:#52b788;">← Back to Seller Login</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     SELLER DASHBOARD PAGE
+======================================================= -->
+<div id="page-seller" class="page">
+  <nav style="background:#1b4332;">
+    <div class="nav-logo" style="color:#52b788;font-size:1.3rem;">🏪 Seller Dashboard</div>
+    <div class="nav-links">
+      <button class="nav-btn" onclick="showSeller('overview')">📊 Overview</button>
+      <button class="nav-btn" onclick="showSeller('myproducts')">📦 My Products</button>
+      <button class="nav-btn" onclick="showSeller('addproduct')">➕ Add Product</button>
+      <button class="nav-btn" onclick="showSeller('orders')">🛒 My Orders</button>
+      <button class="nav-btn" style="color:#e94560;" onclick="doSellerLogout()">Logout</button>
+    </div>
+  </nav>
+  <div id="seller-content"></div>
+</div>
+
+<!-- LOGIN PORTAL CHOOSER (landing) -->
+<div id="page-portal" class="page">
+  <div style="min-height:100vh;background:linear-gradient(135deg,var(--deep-green),#4a7c28);display:flex;align-items:center;justify-content:center;">
+    <div style="text-align:center;color:#fff;padding:40px;">
+      <div style="font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;color:var(--saffron);margin-bottom:8px;">🌿 Authentic Traditional Tastes</div>
+      <div style="font-size:1.1rem;opacity:0.85;margin-bottom:48px;">Choose your portal to continue</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:700px;margin:0 auto;">
+        <div onclick="showPage('page-login')" style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:16px;padding:32px 20px;cursor:pointer;transition:0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+          <div style="font-size:48px;margin-bottom:12px;">🛍️</div>
+          <div style="font-size:1.2rem;font-weight:700;color:var(--saffron);">Customer</div>
+          <div style="font-size:0.85rem;opacity:0.7;margin-top:4px;">Browse &amp; buy products</div>
+        </div>
+        <div onclick="showPage('page-admin-login')" style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:16px;padding:32px 20px;cursor:pointer;transition:0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+          <div style="font-size:48px;margin-bottom:12px;">🔐</div>
+          <div style="font-size:1.2rem;font-weight:700;color:#e94560;">Admin</div>
+          <div style="font-size:0.85rem;opacity:0.7;margin-top:4px;">Manage the platform</div>
+        </div>
+        <div onclick="showPage('page-seller-login')" style="background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);border-radius:16px;padding:32px 20px;cursor:pointer;transition:0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+          <div style="font-size:48px;margin-bottom:12px;">🏪</div>
+          <div style="font-size:1.2rem;font-weight:700;color:#52b788;">Seller</div>
+          <div style="font-size:0.85rem;opacity:0.7;margin-top:4px;">Sell your products</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* ===== ADMIN / SELLER DASHBOARD STYLES ===== */
+.dash-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:20px; padding:32px; max-width:1300px; margin:0 auto; }
+.stat-card { background:#fff; border-radius:14px; padding:24px; box-shadow:0 4px 16px rgba(0,0,0,0.07); }
+.stat-card .stat-icon { font-size:2.2rem; margin-bottom:10px; }
+.stat-card .stat-num { font-size:2rem; font-weight:700; }
+.stat-card .stat-label { color:#888; font-size:0.9rem; margin-top:4px; }
+.dash-section { padding:0 32px 40px; max-width:1300px; margin:0 auto; }
+.dash-table { width:100%; border-collapse:collapse; background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.07); }
+.dash-table th { background:#0f3460; color:#fff; padding:14px 16px; text-align:left; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.5px; }
+.seller-table th { background:#1b4332; }
+.dash-table td { padding:12px 16px; border-bottom:1px solid #f0e8d8; font-size:0.92rem; }
+.dash-table tr:last-child td { border-bottom:none; }
+.dash-table tr:hover td { background:#fdf8f0; }
+.stock-low { color:var(--red); font-weight:700; }
+.stock-ok { color:var(--success); font-weight:700; }
+.stock-mid { color:var(--saffron); font-weight:700; }
+.badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:0.78rem; font-weight:700; }
+.badge-green { background:#eafaf1; color:var(--success); }
+.badge-orange { background:#fff3e0; color:var(--saffron); }
+.badge-red { background:#fdecea; color:var(--red); }
+.badge-blue { background:#e8f4fd; color:#2980b9; }
+.add-prod-form { background:#fff; border-radius:16px; padding:32px; max-width:680px; margin:32px auto; box-shadow:0 4px 18px rgba(0,0,0,0.08); }
+.add-prod-form h2 { font-family:'Playfair Display',serif; font-size:1.5rem; margin-bottom:20px; }
+.fp-label { display:block; font-size:0.82rem; font-weight:700; color:#555; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:5px; margin-top:14px; }
+.fp-input { width:100%; padding:11px 14px; border:2px solid #e0d6c0; border-radius:10px; font-size:0.95rem; font-family:'Lato',sans-serif; background:var(--cream); transition:0.2s; outline:none; }
+.fp-input:focus { border-color:var(--saffron); background:#fff; }
+.fp-submit { background:var(--deep-green); color:#fff; border:none; border-radius:10px; padding:14px 32px; font-size:1rem; font-weight:700; cursor:pointer; margin-top:20px; font-family:'Lato',sans-serif; }
+.fp-submit:hover { background:#3d6b1f; }
+.seller-fp-submit { background:#1b4332; }
+.seller-fp-submit:hover { background:#2d6a4f; }
+.admin-header { background:linear-gradient(90deg,#0f3460,#16213e); padding:32px; color:#fff; }
+.seller-header { background:linear-gradient(90deg,#1b4332,#2d6a4f); padding:32px; color:#fff; }
+.admin-header h1,.seller-header h1 { font-family:'Playfair Display',serif; font-size:2rem; }
+.del-btn { background:none; border:1px solid #fca5a5; color:var(--red); border-radius:6px; padding:4px 10px; font-size:0.8rem; cursor:pointer; }
+.del-btn:hover { background:#fdecea; }
+.edit-stock-input { width:70px; padding:4px 8px; border:1px solid #e0d6c0; border-radius:6px; font-size:0.9rem; text-align:center; }
+.approve-btn { background:none; border:1px solid #86efac; color:var(--success); border-radius:6px; padding:4px 10px; font-size:0.8rem; cursor:pointer; }
+.approve-btn:hover { background:#eafaf1; }
+.reject-btn { background:none; border:1px solid #fca5a5; color:var(--red); border-radius:6px; padding:4px 10px; font-size:0.8rem; cursor:pointer; }
+</style>
+
+<script>
+// ===== ADMIN STATE =====
+let admins = JSON.parse(localStorage.getItem('db_admins')||'[]');
+let currentAdmin = JSON.parse(localStorage.getItem('db_admin_current')||'null');
+let sellers = JSON.parse(localStorage.getItem('db_sellers')||'[]');
+let currentSeller = JSON.parse(localStorage.getItem('db_seller_current')||'null');
+let customProducts = JSON.parse(localStorage.getItem('db_custom_products')||'[]');
+let adminView = 'overview';
+let sellerView = 'overview';
+
+// Seed default admin
+if(!admins.find(a=>a.email==='admin@att.com')) {
+  admins.push({id:'admin1',name:'Super Admin',email:'admin@att.com',password:'admin123',joined:new Date().toLocaleDateString()});
+  localStorage.setItem('db_admins',JSON.stringify(admins));
+}
+
+function getStock() { return JSON.parse(localStorage.getItem('db_stock')||'{}'); }
+function saveStock(s) { localStorage.setItem('db_stock',JSON.stringify(s)); }
+function getAllProducts() { return [...PRODUCTS, ...customProducts]; }
+
+// ===== ADMIN AUTH =====
+function doAdminLogin() {
+  const email = document.getElementById('admin-login-email').value.trim();
+  const pass = document.getElementById('admin-login-pass').value;
+  const err = document.getElementById('admin-login-error');
+  err.style.display='none';
+  if(!email||!pass){err.textContent='Please fill all fields.';err.style.display='block';return;}
+  const admin = admins.find(a=>a.email===email&&a.password===pass);
+  if(!admin){err.textContent='Invalid admin credentials.';err.style.display='block';return;}
+  currentAdmin = admin;
+  localStorage.setItem('db_admin_current',JSON.stringify(admin));
+  adminView='overview';
+  showPage('page-admin');
+  renderAdminContent();
+  toast('✅ Welcome, Admin '+admin.name+'!');
+}
+
+function doAdminRegister() {
+  const name=document.getElementById('admin-reg-name').value.trim();
+  const email=document.getElementById('admin-reg-email').value.trim();
+  const secret=document.getElementById('admin-reg-secret').value;
+  const pass=document.getElementById('admin-reg-pass').value;
+  const pass2=document.getElementById('admin-reg-pass2').value;
+  const err=document.getElementById('admin-reg-error');
+  err.style.display='none';
+  if(!name||!email||!secret||!pass||!pass2){err.textContent='Please fill all fields.';err.style.display='block';return;}
+  if(secret!=='ATT@ADMIN2024'){err.textContent='Invalid secret key.';err.style.display='block';return;}
+  if(pass!==pass2){err.textContent='Passwords do not match.';err.style.display='block';return;}
+  if(pass.length<6){err.textContent='Password must be at least 6 characters.';err.style.display='block';return;}
+  if(admins.find(a=>a.email===email)){err.textContent='Admin with this email already exists.';err.style.display='block';return;}
+  const admin={id:'admin_'+Date.now(),name,email,password:pass,joined:new Date().toLocaleDateString()};
+  admins.push(admin);
+  localStorage.setItem('db_admins',JSON.stringify(admins));
+  currentAdmin=admin;
+  localStorage.setItem('db_admin_current',JSON.stringify(admin));
+  adminView='overview';
+  showPage('page-admin');
+  renderAdminContent();
+  toast('🎉 Admin account created!');
+}
+
+function doAdminLogout() {
+  currentAdmin=null;
+  localStorage.removeItem('db_admin_current');
+  showPage('page-portal');
+}
+
+// ===== ADMIN DASHBOARD =====
+function showAdmin(view) { adminView=view; renderAdminContent(); }
+
+function renderAdminContent() {
+  const c=document.getElementById('admin-content');
+  if(adminView==='overview') c.innerHTML=renderAdminOverview();
+  else if(adminView==='products') c.innerHTML=renderAdminProducts();
+  else if(adminView==='addproduct') c.innerHTML=renderAdminAddProduct();
+  else if(adminView==='orders') c.innerHTML=renderAdminOrders();
+  else if(adminView==='sellers') c.innerHTML=renderAdminSellers();
+  else if(adminView==='users') c.innerHTML=renderAdminUsers();
+}
+
+function renderAdminOverview() {
+  const stock=getStock();
+  const allP=getAllProducts();
+  const lowStock=allP.filter(p=>(stock[p.id]||0)<=10);
+  const totalOrders=JSON.parse(localStorage.getItem('db_orders')||'[]');
+  const totalRevenue=totalOrders.reduce((s,o)=>s+o.total,0);
+  const pendingSellers=sellers.filter(s=>s.status==='pending');
+  return `
+  <div class="admin-header"><h1>📊 Dashboard Overview</h1><p style="opacity:0.7;margin-top:4px;">Welcome back, ${currentAdmin.name}</p></div>
+  <div class="dash-grid">
+    <div class="stat-card"><div class="stat-icon">📦</div><div class="stat-num" style="color:#0f3460;">${allP.length}</div><div class="stat-label">Total Products</div></div>
+    <div class="stat-card"><div class="stat-icon">🛒</div><div class="stat-num" style="color:var(--saffron);">${totalOrders.length}</div><div class="stat-label">Total Orders</div></div>
+    <div class="stat-card"><div class="stat-icon">💰</div><div class="stat-num" style="color:var(--success);">₹${totalRevenue}</div><div class="stat-label">Total Revenue</div></div>
+    <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-num" style="color:var(--earthy);">${JSON.parse(localStorage.getItem('db_users')||'[]').length}</div><div class="stat-label">Registered Users</div></div>
+    <div class="stat-card"><div class="stat-icon">🏪</div><div class="stat-num" style="color:#2980b9;">${sellers.filter(s=>s.status==='approved').length}</div><div class="stat-label">Active Sellers</div></div>
+    <div class="stat-card"><div class="stat-icon">⚠️</div><div class="stat-num" style="color:var(--red);">${lowStock.length}</div><div class="stat-label">Low Stock Items</div></div>
+    <div class="stat-card"><div class="stat-icon">⏳</div><div class="stat-num" style="color:var(--saffron);">${pendingSellers.length}</div><div class="stat-label">Pending Sellers</div></div>
+    <div class="stat-card"><div class="stat-icon">🌿</div><div class="stat-num" style="color:var(--deep-green);">${customProducts.length}</div><div class="stat-label">Added Products</div></div>
+  </div>
+  ${lowStock.length>0?`<div class="dash-section">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--red);margin-bottom:14px;">⚠️ Low Stock Alert</h3>
+    <table class="dash-table">
+      <thead><tr><th>Product</th><th>Category</th><th>Stock</th><th>Action</th></tr></thead>
+      <tbody>${lowStock.map(p=>`<tr>
+        <td>${p.emoji||'📦'} ${p.name}</td>
+        <td>${p.cat}</td>
+        <td class="stock-low">${stock[p.id]||0} units</td>
+        <td><button class="approve-btn" onclick="adminRestockProduct(${p.id})">+50 Restock</button></td>
+      </tr>`).join('')}</tbody>
+    </table>
+  </div>`:''}`;
+}
+
+function adminRestockProduct(id) {
+  const stock=getStock(); stock[id]=(stock[id]||0)+50; saveStock(stock);
+  renderAdminContent(); toast('✅ Product restocked +50 units!');
+}
+
+function renderAdminProducts() {
+  const stock=getStock();
+  const allP=getAllProducts();
+  return `
+  <div class="admin-header"><h1>📦 Product Inventory</h1><p style="opacity:0.7;margin-top:4px;">${allP.length} products total</p></div>
+  <div style="padding:24px 32px;display:flex;gap:10px;flex-wrap:wrap;">
+    <button class="filter-btn active" onclick="showAdmin('addproduct')" style="background:#0f3460;color:#fff;border:none;border-radius:8px;padding:10px 20px;cursor:pointer;font-weight:700;">➕ Add New Product</button>
+  </div>
+  <div class="dash-section">
+    <table class="dash-table">
+      <thead><tr><th>#</th><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Source</th><th>Actions</th></tr></thead>
+      <tbody>${allP.map((p,i)=>{
+        const s=stock[p.id]||0;
+        const cls=s<=5?'stock-low':s<=15?'stock-mid':'stock-ok';
+        const src=PRODUCTS.find(x=>x.id===p.id)?'<span class="badge badge-blue">Default</span>':'<span class="badge badge-green">Custom</span>';
+        return `<tr>
+          <td style="color:#888;font-size:0.85rem;">${i+1}</td>
+          <td><strong>${p.emoji||'📦'}</strong> ${p.name}</td>
+          <td><span class="badge badge-orange">${p.cat}</span></td>
+          <td>₹${p.price}</td>
+          <td><span class="${cls}">${s} units</span> <input class="edit-stock-input" type="number" value="${s}" onchange="updateStock(${p.id},this.value)" min="0"></td>
+          <td>${src}</td>
+          <td>${customProducts.find(x=>x.id===p.id)?`<button class="del-btn" onclick="adminDeleteProduct(${p.id})">Delete</button>`:'<span style="color:#ccc;font-size:0.8rem;">—</span>'}</td>
+        </tr>`;}).join('')}
+      </tbody>
+    </table>
+  </div>`;
+}
+
+function updateStock(id,val) {
+  const stock=getStock(); stock[id]=parseInt(val)||0; saveStock(stock); toast('📦 Stock updated!');
+}
+
+function adminDeleteProduct(id) {
+  customProducts=customProducts.filter(p=>p.id!==id);
+  localStorage.setItem('db_custom_products',JSON.stringify(customProducts));
+  renderAdminContent(); toast('🗑️ Product deleted.');
+}
+
+function renderAdminAddProduct() {
+  return `
+  <div class="admin-header"><h1>➕ Add New Product</h1></div>
+  <div class="add-prod-form" style="border-top:4px solid #0f3460;">
+    <h2 style="color:#0f3460;">New Product Details</h2>
+    <label class="fp-label">Product Name</label>
+    <input class="fp-input" id="ap-name" placeholder="e.g. Kashmiri Pickle">
+    <label class="fp-label">Category</label>
+    <select class="fp-input" id="ap-cat">
+      <option value="traditional">Traditional Food</option>
+      <option value="pickles">Pickles & Achaar</option>
+      <option value="fertilizers">Organic Fertilizers</option>
+    </select>
+    <label class="fp-label">Price (₹)</label>
+    <input class="fp-input" id="ap-price" type="number" placeholder="e.g. 120" min="1">
+    <label class="fp-label">Description</label>
+    <input class="fp-input" id="ap-desc" placeholder="Short description of the product">
+    <label class="fp-label">Emoji Icon</label>
+    <input class="fp-input" id="ap-emoji" placeholder="e.g. 🥫" maxlength="4">
+    <label class="fp-label">Initial Stock</label>
+    <input class="fp-input" id="ap-stock" type="number" placeholder="e.g. 50" min="0">
+    <button class="fp-submit" onclick="adminAddProduct()">➕ Add Product</button>
+  </div>`;
+}
+
+function adminAddProduct() {
+  const name=document.getElementById('ap-name').value.trim();
+  const cat=document.getElementById('ap-cat').value;
+  const price=parseInt(document.getElementById('ap-price').value)||0;
+  const desc=document.getElementById('ap-desc').value.trim();
+  const emoji=document.getElementById('ap-emoji').value.trim()||'📦';
+  const stock_qty=parseInt(document.getElementById('ap-stock').value)||50;
+  if(!name||!price||!desc){toast('⚠️ Please fill all required fields!');return;}
+  const newId=Date.now();
+  const prod={id:newId,cat,name,price,desc,emoji,addedBy:'admin',seller:currentAdmin.name};
+  customProducts.push(prod);
+  localStorage.setItem('db_custom_products',JSON.stringify(customProducts));
+  const stock=getStock(); stock[newId]=stock_qty; saveStock(stock);
+  toast('✅ Product "'+name+'" added successfully!');
+  showAdmin('products');
+}
+
+function renderAdminOrders() {
+  const allOrders=JSON.parse(localStorage.getItem('db_orders')||'[]');
+  return `
+  <div class="admin-header"><h1>🛒 All Orders</h1><p style="opacity:0.7;margin-top:4px;">${allOrders.length} orders total</p></div>
+  <div class="dash-section" style="margin-top:32px;">
+    ${allOrders.length===0?'<div style="text-align:center;padding:60px;color:#888;font-size:1.1rem;">No orders yet.</div>':
+    `<table class="dash-table">
+      <thead><tr><th>Order ID</th><th>Date</th><th>Items</th><th>Total</th><th>Status</th></tr></thead>
+      <tbody>${[...allOrders].reverse().map(o=>`<tr>
+        <td style="font-weight:700;color:#0f3460;">${o.id}</td>
+        <td>${o.date}</td>
+        <td>${o.items.map(i=>i.emoji||'📦').join(' ')} (${o.items.length})</td>
+        <td style="font-weight:700;">₹${o.total}</td>
+        <td><span class="badge badge-green">${o.status}</span></td>
+      </tr>`).join('')}</tbody>
+    </table>`}
+  </div>`;
+}
+
+function renderAdminSellers() {
+  return `
+  <div class="admin-header"><h1>🤝 Seller Management</h1><p style="opacity:0.7;margin-top:4px;">${sellers.length} sellers registered</p></div>
+  <div class="dash-section" style="margin-top:32px;">
+    ${sellers.length===0?'<div style="text-align:center;padding:60px;color:#888;font-size:1.1rem;">No sellers registered yet.</div>':
+    `<table class="dash-table">
+      <thead><tr><th>Business</th><th>Owner</th><th>Email</th><th>Category</th><th>Status</th><th>Actions</th></tr></thead>
+      <tbody>${sellers.map(s=>`<tr>
+        <td style="font-weight:700;">🏪 ${s.biz}</td>
+        <td>${s.name}</td>
+        <td>${s.email}</td>
+        <td><span class="badge badge-orange">${s.cat}</span></td>
+        <td><span class="badge ${s.status==='approved'?'badge-green':s.status==='pending'?'badge-orange':'badge-red'}">${s.status}</span></td>
+        <td style="display:flex;gap:6px;">
+          ${s.status==='pending'?`<button class="approve-btn" onclick="approveSeller('${s.id}')">Approve</button><button class="reject-btn" onclick="rejectSeller('${s.id}')">Reject</button>`:''}
+          ${s.status==='approved'?`<button class="reject-btn" onclick="rejectSeller('${s.id}')">Suspend</button>`:''}
+        </td>
+      </tr>`).join('')}</tbody>
+    </table>`}
+  </div>`;
+}
+
+function approveSeller(id) {
+  const s=sellers.find(x=>x.id===id); if(s){s.status='approved';} 
+  localStorage.setItem('db_sellers',JSON.stringify(sellers)); renderAdminContent(); toast('✅ Seller approved!');
+}
+function rejectSeller(id) {
+  const s=sellers.find(x=>x.id===id); if(s){s.status='suspended';} 
+  localStorage.setItem('db_sellers',JSON.stringify(sellers)); renderAdminContent(); toast('🚫 Seller suspended.');
+}
+
+function renderAdminUsers() {
+  const allUsers=JSON.parse(localStorage.getItem('db_users')||'[]');
+  return `
+  <div class="admin-header"><h1>👥 Registered Users</h1><p style="opacity:0.7;margin-top:4px;">${allUsers.length} users</p></div>
+  <div class="dash-section" style="margin-top:32px;">
+    ${allUsers.length===0?'<div style="text-align:center;padding:60px;color:#888;font-size:1.1rem;">No users yet.</div>':
+    `<table class="dash-table">
+      <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Phone</th><th>Joined</th></tr></thead>
+      <tbody>${allUsers.map((u,i)=>`<tr>
+        <td style="color:#888;">${i+1}</td>
+        <td style="font-weight:700;">👤 ${u.name}</td>
+        <td>${u.email}</td>
+        <td>${u.phone||'—'}</td>
+        <td>${u.joined||'—'}</td>
+      </tr>`).join('')}</tbody>
+    </table>`}
+  </div>`;
+}
+
+// ===== SELLER AUTH =====
+function doSellerLogin() {
+  const email=document.getElementById('seller-login-email').value.trim();
+  const pass=document.getElementById('seller-login-pass').value;
+  const err=document.getElementById('seller-login-error');
+  err.style.display='none';
+  if(!email||!pass){err.textContent='Please fill all fields.';err.style.display='block';return;}
+  const seller=sellers.find(s=>s.email===email&&s.password===pass);
+  if(!seller){err.textContent='Invalid seller credentials.';err.style.display='block';return;}
+  if(seller.status==='pending'){err.textContent='Your account is pending admin approval. Please wait.';err.style.display='block';return;}
+  if(seller.status==='suspended'){err.textContent='Your seller account has been suspended. Contact admin.';err.style.display='block';return;}
+  currentSeller=seller;
+  localStorage.setItem('db_seller_current',JSON.stringify(seller));
+  sellerView='overview';
+  showPage('page-seller');
+  renderSellerContent();
+  toast('✅ Welcome, '+seller.biz+'!');
+}
+
+function doSellerRegister() {
+  const biz=document.getElementById('seller-reg-biz').value.trim();
+  const name=document.getElementById('seller-reg-name').value.trim();
+  const email=document.getElementById('seller-reg-email').value.trim();
+  const phone=document.getElementById('seller-reg-phone').value.trim();
+  const cat=document.getElementById('seller-reg-cat').value;
+  const pass=document.getElementById('seller-reg-pass').value;
+  const pass2=document.getElementById('seller-reg-pass2').value;
+  const err=document.getElementById('seller-reg-error');
+  err.style.display='none';
+  if(!biz||!name||!email||!phone||!pass||!pass2){err.textContent='Please fill all fields.';err.style.display='block';return;}
+  if(pass!==pass2){err.textContent='Passwords do not match.';err.style.display='block';return;}
+  if(pass.length<6){err.textContent='Password must be at least 6 characters.';err.style.display='block';return;}
+  if(sellers.find(s=>s.email===email)){err.textContent='Seller with this email already exists.';err.style.display='block';return;}
+  const seller={id:'seller_'+Date.now(),biz,name,email,phone,cat,password:pass,status:'pending',joined:new Date().toLocaleDateString(),products:[],sales:0};
+  sellers.push(seller);
+  localStorage.setItem('db_sellers',JSON.stringify(sellers));
+  showPage('page-seller-login');
+  document.getElementById('seller-login-error').style.display='none';
+  toast('🎉 Registered! Awaiting admin approval.');
+}
+
+function doSellerLogout() {
+  currentSeller=null;
+  localStorage.removeItem('db_seller_current');
+  showPage('page-portal');
+}
+
+// ===== SELLER DASHBOARD =====
+function showSeller(view) { sellerView=view; renderSellerContent(); }
+
+function renderSellerContent() {
+  const c=document.getElementById('seller-content');
+  if(sellerView==='overview') c.innerHTML=renderSellerOverview();
+  else if(sellerView==='myproducts') c.innerHTML=renderSellerProducts();
+  else if(sellerView==='addproduct') c.innerHTML=renderSellerAddProduct();
+  else if(sellerView==='orders') c.innerHTML=renderSellerOrders();
+}
+
+function getSellerProducts() {
+  return customProducts.filter(p=>p.sellerId===currentSeller.id);
+}
+
+function renderSellerOverview() {
+  const myProds=getSellerProducts();
+  const stock=getStock();
+  const allOrders=JSON.parse(localStorage.getItem('db_orders')||'[]');
+  const myOrderItems=allOrders.flatMap(o=>o.items.filter(i=>myProds.find(p=>p.id===i.id)));
+  const myRevenue=myOrderItems.reduce((s,i)=>s+(i.price*i.qty),0);
+  return `
+  <div class="seller-header"><h1>📊 Seller Overview</h1><p style="opacity:0.7;margin-top:4px;">Welcome, ${currentSeller.biz} · <span style="background:#52b788;color:#fff;padding:2px 10px;border-radius:10px;font-size:0.85rem;">${currentSeller.status}</span></p></div>
+  <div class="dash-grid">
+    <div class="stat-card"><div class="stat-icon">📦</div><div class="stat-num" style="color:#1b4332;">${myProds.length}</div><div class="stat-label">My Products</div></div>
+    <div class="stat-card"><div class="stat-icon">💰</div><div class="stat-num" style="color:var(--success);">₹${myRevenue}</div><div class="stat-label">My Revenue</div></div>
+    <div class="stat-card"><div class="stat-icon">🛒</div><div class="stat-num" style="color:var(--saffron);">${myOrderItems.length}</div><div class="stat-label">Items Sold</div></div>
+    <div class="stat-card"><div class="stat-icon">⚠️</div><div class="stat-num" style="color:var(--red);">${myProds.filter(p=>(stock[p.id]||0)<=10).length}</div><div class="stat-label">Low Stock</div></div>
+  </div>
+  <div class="dash-section">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#1b4332;margin-bottom:14px;">🏪 My Recent Products</h3>
+    ${myProds.length===0?'<div style="color:#888;padding:20px 0;">No products yet. <a href="#" onclick="showSeller(\'addproduct\')" style="color:#52b788;">Add your first product!</a></div>':
+    `<table class="dash-table seller-table">
+      <thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th></tr></thead>
+      <tbody>${myProds.map(p=>`<tr>
+        <td><strong>${p.emoji||'📦'}</strong> ${p.name}</td>
+        <td><span class="badge badge-orange">${p.cat}</span></td>
+        <td>₹${p.price}</td>
+        <td><span class="${(stock[p.id]||0)<=10?'stock-low':(stock[p.id]||0)<=20?'stock-mid':'stock-ok'}">${stock[p.id]||0} units</span></td>
+      </tr>`).join('')}</tbody>
+    </table>`}
+  </div>`;
+}
+
+function renderSellerProducts() {
+  const myProds=getSellerProducts();
+  const stock=getStock();
+  return `
+  <div class="seller-header"><h1>📦 My Products</h1><p style="opacity:0.7;margin-top:4px;">${myProds.length} products listed</p></div>
+  <div style="padding:24px 32px 0;">
+    <button onclick="showSeller('addproduct')" style="background:#1b4332;color:#fff;border:none;border-radius:8px;padding:10px 20px;cursor:pointer;font-weight:700;">➕ Add New Product</button>
+  </div>
+  <div class="dash-section" style="margin-top:24px;">
+    ${myProds.length===0?'<div style="text-align:center;padding:60px;color:#888;">No products yet!</div>':
+    `<table class="dash-table seller-table">
+      <thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead>
+      <tbody>${myProds.map(p=>`<tr>
+        <td><strong>${p.emoji||'📦'}</strong> ${p.name}</td>
+        <td><span class="badge badge-orange">${p.cat}</span></td>
+        <td>₹${p.price}</td>
+        <td><span class="${(stock[p.id]||0)<=10?'stock-low':(stock[p.id]||0)<=20?'stock-mid':'stock-ok'}">${stock[p.id]||0}</span> <input class="edit-stock-input" type="number" value="${stock[p.id]||0}" onchange="updateStock(${p.id},this.value)" min="0"></td>
+        <td><button class="del-btn" onclick="sellerDeleteProduct(${p.id})">Delete</button></td>
+      </tr>`).join('')}</tbody>
+    </table>`}
+  </div>`;
+}
+
+function sellerDeleteProduct(id) {
+  customProducts=customProducts.filter(p=>p.id!==id);
+  localStorage.setItem('db_custom_products',JSON.stringify(customProducts));
+  renderSellerContent(); toast('🗑️ Product removed.');
+}
+
+function renderSellerAddProduct() {
+  return `
+  <div class="seller-header"><h1>➕ List a Product</h1></div>
+  <div class="add-prod-form" style="border-top:4px solid #1b4332;">
+    <h2 style="color:#1b4332;">New Product Listing</h2>
+    <label class="fp-label">Product Name</label>
+    <input class="fp-input" id="sp-name" placeholder="e.g. Homemade Mango Pickle">
+    <label class="fp-label">Category</label>
+    <select class="fp-input" id="sp-cat">
+      <option value="traditional">Traditional Food</option>
+      <option value="pickles">Pickles & Achaar</option>
+      <option value="fertilizers">Organic Fertilizers</option>
+    </select>
+    <label class="fp-label">Price (₹)</label>
+    <input class="fp-input" id="sp-price" type="number" placeholder="e.g. 150" min="1">
+    <label class="fp-label">Description</label>
+    <input class="fp-input" id="sp-desc" placeholder="Describe your product">
+    <label class="fp-label">Emoji Icon</label>
+    <input class="fp-input" id="sp-emoji" placeholder="e.g. 🥫" maxlength="4">
+    <label class="fp-label">Stock Quantity</label>
+    <input class="fp-input" id="sp-stock" type="number" placeholder="e.g. 30" min="0">
+    <button class="fp-submit seller-fp-submit" onclick="sellerAddProduct()">➕ List Product</button>
+  </div>`;
+}
+
+function sellerAddProduct() {
+  const name=document.getElementById('sp-name').value.trim();
+  const cat=document.getElementById('sp-cat').value;
+  const price=parseInt(document.getElementById('sp-price').value)||0;
+  const desc=document.getElementById('sp-desc').value.trim();
+  const emoji=document.getElementById('sp-emoji').value.trim()||'📦';
+  const stock_qty=parseInt(document.getElementById('sp-stock').value)||30;
+  if(!name||!price||!desc){toast('⚠️ Please fill all required fields!');return;}
+  const newId=Date.now();
+  const prod={id:newId,cat,name,price,desc,emoji,addedBy:'seller',sellerId:currentSeller.id,seller:currentSeller.biz};
+  customProducts.push(prod);
+  localStorage.setItem('db_custom_products',JSON.stringify(customProducts));
+  const stock=getStock(); stock[newId]=stock_qty; saveStock(stock);
+  toast('✅ Product "'+name+'" listed successfully!');
+  showSeller('myproducts');
+}
+
+function renderSellerOrders() {
+  const myProds=getSellerProducts();
+  const allOrders=JSON.parse(localStorage.getItem('db_orders')||'[]');
+  const myOrders=allOrders.filter(o=>o.items.some(i=>myProds.find(p=>p.id===i.id)));
+  return `
+  <div class="seller-header"><h1>🛒 Orders for My Products</h1><p style="opacity:0.7;margin-top:4px;">${myOrders.length} orders</p></div>
+  <div class="dash-section" style="margin-top:32px;">
+    ${myOrders.length===0?'<div style="text-align:center;padding:60px;color:#888;font-size:1.1rem;">No orders for your products yet.</div>':
+    `<table class="dash-table seller-table">
+      <thead><tr><th>Order ID</th><th>Date</th><th>My Items</th><th>Value</th><th>Status</th></tr></thead>
+      <tbody>${[...myOrders].reverse().map(o=>{
+        const myItems=o.items.filter(i=>myProds.find(p=>p.id===i.id));
+        const val=myItems.reduce((s,i)=>s+(i.price*i.qty),0);
+        return `<tr>
+          <td style="font-weight:700;color:#1b4332;">${o.id}</td>
+          <td>${o.date}</td>
+          <td>${myItems.map(i=>(i.emoji||'📦')+' '+i.name).join(', ')}</td>
+          <td style="font-weight:700;">₹${val}</td>
+          <td><span class="badge badge-green">${o.status}</span></td>
+        </tr>`;}).join('')}</tbody>
+    </table>`}
+  </div>`;
+}
+
+// ===== UPDATE LOGIN PAGE TO SHOW PORTAL OPTION =====
+// Patch the login page to include portal navigation
+document.addEventListener('DOMContentLoaded', function() {
+  const loginCard = document.querySelector('#page-login .auth-card');
+  if(loginCard) {
+    const portalLink = document.createElement('div');
+    portalLink.className = 'auth-switch';
+    portalLink.style.marginTop = '10px';
+    portalLink.innerHTML = 'Admin or Seller? <a onclick="showPage(\'page-portal\')" style="color:#888;">Go to Portal →</a>';
+    loginCard.appendChild(portalLink);
+  }
+});
+
+// Restore sessions
+if(currentAdmin) { showPage('page-admin'); renderAdminContent(); }
+else if(currentSeller && currentSeller.status==='approved') { showPage('page-seller'); renderSellerContent(); }
+</script>
+</body>
+</html>
